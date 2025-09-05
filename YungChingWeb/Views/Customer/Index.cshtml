@@ -6,6 +6,12 @@
     int index = 1;
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 <h2>客戶資料</h2>
 <p>
     @Html.ActionLink("新增客戶", "Create")
@@ -40,3 +46,16 @@
         }
     </tbody>
 </table>
+@section scripts {
+    <script>
+        // 3秒後SuccessMessage 消失
+        setTimeout(function () {
+            var msg = document.getElementById("successMessage");
+            if (msg) {
+                msg.style.transition = "opacity 0.5s ease-out";
+                msg.style.opacity = "0";
+                setTimeout(function () { msg.remove(); }, 500);
+            }
+        }, 3000);
+    </script>
+}

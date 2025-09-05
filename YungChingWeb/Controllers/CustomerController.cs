@@ -44,6 +44,7 @@ namespace YungChingWeb.Controllers
                 customer.CreatedAt = DateTime.Now;
                 _context.Customers.Add(customer);
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = "新增成功！";
                 return RedirectToAction("Index");
             }
             return View(customer);
@@ -84,6 +85,7 @@ namespace YungChingWeb.Controllers
                 existing.Address = customer.Address;
 
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = "編輯成功！";
                 return RedirectToAction("Index");
             }
 
@@ -104,6 +106,7 @@ namespace YungChingWeb.Controllers
 
             _context.Customers.Remove(customer);
             _context.SaveChanges();
+            TempData["SuccessMessage"] = "刪除成功！";
 
             return RedirectToAction("Index");
         }
