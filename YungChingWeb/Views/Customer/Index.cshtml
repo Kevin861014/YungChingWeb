@@ -32,7 +32,7 @@
                     <td>@customer.Email</td>
                     <td>
                         @Html.ActionLink("編輯", "Edit", new { id = customer.Id }) |
-                        @Html.ActionLink("刪除", "Delete", new { id = customer.Id })
+                        @Html.ActionLink("刪除", "Delete", new { id = customer.Id }, new { onclick = "return confirm('確定要刪除這筆客戶資料嗎？');" })
                     </td>
                 </tr>
                 index++;

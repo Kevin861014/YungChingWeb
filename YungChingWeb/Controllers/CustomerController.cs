@@ -89,5 +89,23 @@ namespace YungChingWeb.Controllers
 
             return View(customer);
         }
+
+        /// <summary>
+        /// 刪除客戶資料
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var customer = _context.Customers.Find(id);
+            if (customer == null)
+                return HttpNotFound();
+
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
