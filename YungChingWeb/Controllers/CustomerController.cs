@@ -30,7 +30,11 @@ namespace YungChingWeb.Controllers
             return View();
         }
 
-        // 新增客戶
+        /// <summary>
+        /// 新增客戶
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Customer customer)
@@ -52,7 +56,38 @@ namespace YungChingWeb.Controllers
         /// <returns></returns>
         public ActionResult Edit(int id)
         {
-            return View();
+            var customer = _context.Customers.Find(id);
+            if (customer == null)
+                return HttpNotFound();
+            return View(customer);
+        }
+
+        /// <summary>
+        /// 編輯客戶資料
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                var existing = _context.Customers.Find(customer.Id);
+                if (existing == null)
+                    return HttpNotFound();
+
+                // 更新欄位
+                existing.Name = customer.Name;
+                existing.Email = customer.Email;
+                existing.Phone = customer.Phone;
+                existing.Address = customer.Address;
+
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(customer);
         }
     }
 }
