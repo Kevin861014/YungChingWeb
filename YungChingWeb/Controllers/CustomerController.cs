@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using YungChingWeb.Models;
 using YungChingWeb.Services;
 
 namespace YungChingWeb.Controllers
@@ -15,7 +17,8 @@ namespace YungChingWeb.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            var customers = _context.Customers.ToList();
+            return View(customers);
         }
 
         /// <summary>
@@ -25,6 +28,21 @@ namespace YungChingWeb.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        // 新增客戶
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                customer.CreatedAt = DateTime.Now;
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(customer);
         }
 
         /// <summary>

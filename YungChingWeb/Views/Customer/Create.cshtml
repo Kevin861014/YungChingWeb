@@ -1,8 +1,35 @@
-﻿@model IEnumerable<YungChingWeb.Models.Customer>
+﻿@model YungChingWeb.Models.Customer
 @{
     ViewBag.Title = "Create Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>新增客戶資料</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone)
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address)
+        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">新增</button>
+}
 

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Customer List";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int index = 1;
 }
 
 <h2>客戶資料</h2>
@@ -26,7 +27,7 @@
             foreach (var customer in Model)
             {
                 <tr>
-                    <td>@customer.Id</td>
+                    <td>@index</td>
                     <td>@customer.Name</td>
                     <td>@customer.Email</td>
                     <td>
@@ -34,6 +35,7 @@
                         @Html.ActionLink("刪除", "Delete", new { id = customer.Id })
                     </td>
                 </tr>
+                index++;
             }
         }
     </tbody>
