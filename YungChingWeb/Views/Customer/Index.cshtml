@@ -1,0 +1,40 @@
+﻿@model IEnumerable<YungChingWeb.Models.Customer>
+
+@{
+    ViewBag.Title = "Customer List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>客戶資料</h2>
+<p>
+    @Html.ActionLink("新增客戶", "Create")
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>項目</th>
+            <th>姓名</th>
+            <th>Email</th>
+            <th>動作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+
+            foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                    <td>
+                        @Html.ActionLink("編輯", "Edit", new { id = customer.Id }) |
+                        @Html.ActionLink("刪除", "Delete", new { id = customer.Id })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
